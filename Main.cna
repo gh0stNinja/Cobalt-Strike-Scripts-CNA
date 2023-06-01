@@ -19,7 +19,7 @@ popup beacon_bottom {
 }
 
 popup my_help{
-  item("&i'mortal",{url_open("https://www.imortal.icu/")});
+  item("&Ninja",{url_open("https://www.imortal.icu/")});
   separator();
 }
 
