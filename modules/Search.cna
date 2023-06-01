@@ -1,0 +1,19 @@
+# Author: Yihsiwei <yihsiwei@gmail.com>
+
+sub 搜索文件 {
+        bshell($bid, "dir ".$3['panfu'].":\*".$3['file']."*.* /s /b");
+ }
+
+
+menu "搜索文件" {
+	item "搜索文件"{
+		blog($1, "\c9=========== 搜索文件 ==========");
+		$bid = $1;
+		$dialog = dialog("Author: Yihsiwei", %(panfu => "c", file => "密码",  bid => $bid), &搜索文件);
+		drow_text($dialog, "panfu",  "磁盘: "); 	
+		drow_text($dialog, "file",  "文件关键字: ");
+		dbutton_action($dialog, "Go");
+		dialog_show($dialog);
+	}
+}
+
