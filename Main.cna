@@ -19,7 +19,7 @@ popup beacon_bottom {
 }
 
 popup my_help{
-  item("&Ninja",{url_open("https://www.imortal.icu/")});
+  item("&Ninja",{url_open("https://github.com/gh0stNinja")});
   separator();
 }
 
