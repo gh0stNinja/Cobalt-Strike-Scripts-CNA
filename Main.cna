@@ -19,7 +19,7 @@ popup beacon_bottom {
 }
 
 popup my_help{
-  item("&Ninja's blog",{url_open("https://gh0stninja.github.io/")});
+  item("&About Me",{url_open("https://gh0stninja.github.io/")});
   separator();
 }
 
