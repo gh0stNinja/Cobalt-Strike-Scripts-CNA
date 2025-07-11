@@ -1,0 +1,26 @@
+popup beacon_bottom {
+  separator();
+  menu "Tools"{
+	include(script_resource("modules/Search.cna"));
+	include(script_resource("modules/InfoCollect.cna"));
+	include(script_resource("modules/IntrScan.cna"));
+	include(script_resource("modules/IntrAgent.cna"));
+	include(script_resource("modules/AuthPromote.cna"));
+	include(script_resource("modules/PassCapture.cna"));
+	include(script_resource("modules/Client.cna"));
+	include(script_resource("modules/BypassCxk.cna"));
+    include(script_resource("modules/TraceClean.cna"));
+	include(script_resource("modules/LateMovement.cna"));
+	include(script_resource("modules/ms17-010.cna"));
+	include(script_resource("modules/HavingFun.cna"));
+	include(script_resource("modules/Permission.cna"));
+  }
+  separator();
+}
+
+popup my_help{
+  item("&About Me",{url_open("https://gh0stninja.github.io/")});
+  separator();
+}
+
+menubar("About", "my_help");
